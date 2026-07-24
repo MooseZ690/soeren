@@ -15,10 +15,16 @@ div:not([class]) {
 body {
     font-family: 'Inter', sans-serif;
     min-height: 100vh; 
+    margin: 0;
+    padding: 0;
 }
 
 /* TEXT STYLING */
 
 .txt-center {
     text-align: center;
+}
+
+.subdued {
+    color: var(--font-color-2)
 }
