@@ -4,17 +4,24 @@
 <div class="main">
     <div class="character-card">
 
-            <img class="cover-image" src="/static/banner.jpg">
+        <img class="cover-image" src="/static/banner.jpg">
 
         <div class="cc-content">
             <img class="profile-pic" src="/static/profilepic.jpg">
 
             <div class="cc-text-container">
                 <div class="cc-header">
-                    <h1>name</h1>
-                    <h3 class="subdued">Add jinja2 'description' passed from db</h3>
+                    <h1>{{ cc[0]["name"] }}</h1>
+                    <h3 class="subdued">{{ cc[0]["subheading"] }}</h3>
+                </div>
+                
+                <p class="cc-description">{{ cc[0]["description"] }}</p>
+
+                <div class="">
+
                 </div>
             </div>
+
         </div>
 
     </div>
