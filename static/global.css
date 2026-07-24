@@ -1,0 +1,24 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --font-color-1: black;
+    --font-color-2: rgb(65, 65, 65);
+}
+
+/* GLOBAL STYLING */
+
+div:not([class]) {
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    min-height: 100vh; 
+}
+
+/* TEXT STYLING */
+
+.txt-center {
+    text-align: center;
+}

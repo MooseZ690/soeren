@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="/static/global.css"> <!-- sitewide scaling, e.g bg & font colors -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"> <!-- social media icons -->
+  <link rel="stylesheet" href="/static/layout.css"> <!-- spacing, padding etc. -->
+  <link rel="stylesheet" href="/static/components.css"> <!-- boxes, buttons etc. -->
+  <link rel="stylesheet" href="/static/footer.css"> <!-- footer styling -->
+  <link rel="stylesheet" href="/static/header.css"> <!-- header styling -->
+  <title>Soeren Wells</title>
+</head>
+<body>
+
+<div class="header">
+
+    <div class="title-bar">
+        don't touch this chud
+    </div>
+
+    <button class="button-submit">
+        Touch my dih
+    </button>
+
+</div>
+
+{% block body %}
+<!-- main site content, rendered on separate templates -->
+{% endblock %}
+
+<div class="footer">
+    <div class="socials">
+        
+        <div class="txt-center">
+        <a class="social-label" href="https://instagram.com/soerenmentalskills" target="_blank">
+            <i class="fa-brands fa-instagram"></i>  Instagram
+        </a>
+        </div>
+
+        <div class="txt-center">
+        <a class="social-label"  href="https://tiktok.com/@soerenmentalskills" target="_blank">
+            <i class="fa-brands fa-tiktok"></i>  Tiktok
+        </a>
+        </div>
+
+        <div class="txt-center">
+        <a class="social-label"  href="https://youtube.com/@soerenmentalskills" target="_blank">
+            <i class="fa-brands fa-youtube"></i>  Youtube
+        </a>
+        </div>
+
+        <div class="txt-center">
+        <a class="social-label"  href="https://www.swimcloud.com/swimmer/2684622/" target="_blank">
+            <i class="fa-brands fa-accusoft"></i>  Swimcloud
+        </a>
+        </div>
+
+    </div>
+</div>
+
+</body>
+
+<script>
+    const footer = document.querySelector(".footer");
+
+    window.addEventListener("scroll", () => {
+    if (window.scrollY > 0) {
+    footer.classList.add("show");
+    } else {
+    footer.classList.remove("show");
+    }
+    });
+</script>
+
+</html>

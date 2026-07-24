@@ -1,0 +1,29 @@
+.button-submit {
+    background-color: #4738F1;
+    border-radius: 10px;
+    border: none;
+    color: white;
+    padding: 10px;
+    cursor: pointer;
+}
+
+.character-card {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+    border-radius: 25px;
+    width: 80%;
+    aspect-ratio
+    margin: 12px 10%;
+    padding: 28px;
+    display: inline-block;
+}
+
+.profile-pic {
+    border-radius: 50%;
+    aspect-ratio: 1 / 1;
+    overflow: hidden;
+    width: 200px;
+}
+
+.cc-text-container {
+
+}

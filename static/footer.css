@@ -1,0 +1,30 @@
+.socials {
+    width: 60%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.social-label {
+    width: 5vw;
+    color: var(--font-color-2);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: small;
+    text-align: center;
+}
+
+.footer {
+    position: fixed;
+    bottom: -100px;
+    width: 100%;
+    padding: 5px;
+    transition: bottom 0.3s ease;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    /* box-shadow: 0 -5px 10px rgba(0, 0, 0, 0.25); uncomment if desired */
+}
+
+.footer.show {
+  bottom: 0;
+}
