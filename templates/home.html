@@ -2,7 +2,19 @@
 
 {% block body %}
 <div class="main">
-    <div class="character-card">
+
+    <div class="splashscreen">
+
+        <div class="ss-large">
+            BORN FOR VICTORY
+        </div>
+
+        <div class="ss-small">
+        </div>
+
+    </div>
+
+    <div class="character-card box" id="cc">
 
         <img class="cover-image" src="/static/banner.jpg">
 
@@ -14,7 +26,7 @@
                     <h1>{{ cc[0]["name"] }}</h1>
                     <h3 class="subdued">{{ cc[0]["subheading"] }}</h3>
                 </div>
-                
+
                 <p class="cc-description">{{ cc[0]["description"] }}</p>
 
                 <div class="">
@@ -25,6 +37,43 @@
         </div>
 
     </div>
+    
+    {% for post in posts %}
+        <div class="box post">
+            <div class="post-who">
+                <img src="/static/profilepic.jpg">
+                <h2>Soeren Wells</h2>
+            </div>
+            <div class="post-text">
+                <h2>{{post['title']}}</h2>
+                <p>{{post['content']}}</p>
+                <p class="subdued">{{post['time']}}</p>
+            </div>
+        </div>
+    {% endfor %}
 
 </div>
+
+<a href="#cc" class="scroll-indicator" aria-label="Scroll down">
+    <svg width="60" height="60" viewBox="0 0 60 80" fill="none" xmlns="http://w3.org">
+        <g>
+            <!-- Animation for the entire group bouncing up and down -->
+            <animateTransform attributeName="transform" type="translate" values="0,0; 0,8; 0,0" dur="1.5s"
+                repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
+
+            <!-- Mask to punch a transparent hole through the white circle -->
+            <mask id="arrow-cutout">
+                <!-- Everything white in the mask stays visible -->
+                <circle cx="30" cy="30" r="28" fill="white" />
+                <!-- Everything black in the mask becomes completely transparent -->
+                <path d="M20 25L30 35L40 25" stroke="black" stroke-width="4" stroke-linecap="round"
+                    stroke-linejoin="round" fill="none" />
+            </mask>
+
+            <!-- Visible White Circle with the Mask Applied -->
+            <circle cx="30" cy="30" r="28" fill="white" mask="url(#arrow-cutout)" />
+        </g>
+    </svg>
+</a>
+
 {% endblock %}

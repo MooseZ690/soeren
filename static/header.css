@@ -1,15 +1,30 @@
 .title-bar {
     margin: 10px 0;
     width: 100%;
-    text-align: center;
     font-size: xx-large;
     font-weight: 800;
 }
 
 .header {
     border-bottom: 1px solid gray;
+    text-align: center;
 }
 
+/* NAVBAR */
+
 .navbar {
-    
+    margin: 20px 18%;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+}
+
+.navbar-link {
+    text-decoration: none;
+    color: black;
+    font-size: x-large;
+    transition: all 0.2s ease;
+}
+
+.navbar-link:hover {
+    scale: 1.1;
 }

@@ -8,18 +8,15 @@
 }
 
 .main {
-    display: flex;
     justify-content: center;
-    padding: 20px;
 }
 
 /* CHARACTER CARD STYLING */
 
 .character-card {
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
-    border-radius: 25px;
     width: 80%;
     overflow: hidden;
+    margin: 0 10%;
 }
 
 .cover-image {
@@ -27,6 +24,7 @@
     height: 200px;
     background-size: cover;
     background-position: center;
+    object-fit: cover;
 }
 
 .cc-content {
@@ -69,4 +67,44 @@
 .cc-header h3 {
     
     font-size: calc((1vw + 2vh) / 3);
+}
+
+/* HOME LANDER */
+
+.splashscreen {
+    background-image: url('/static/splashscreen.jpg');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: calc(100vh - 199px);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    padding: 40px;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.ss-large {
+    color: white;
+    font-size: calc((2vh + 1vw) / 0.3);
+    transform: translateY(-70px);
+    font-family: 'Monsterrat', 'Sans Serif';
+    font-weight: 700;
+}
+
+.scroll-indicator {
+    position: absolute;
+    left: 50%;
+    top: 80%;
+    transform: translateX(-50%);
+}
+
+/* POSTS */
+
+.post {
+    width: 60%;
+    margin: 24px 20%;
+    padding: 24px;
+    display: grid;
+    grid-template-columns: 1fr 4fr;
 }
