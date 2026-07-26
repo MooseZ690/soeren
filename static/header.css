@@ -1,28 +1,35 @@
 .title-bar {
-    margin: 10px 0;
-    width: 100%;
     font-size: xx-large;
     font-weight: 800;
+    align-items: center;
+    font-family: 'Michroma';
 }
 
 .header {
-    border-bottom: 1px solid gray;
-    text-align: center;
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    color: var(--font-color-1);
+    padding: 14px;
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: var(--background-color);
 }
 
 /* NAVBAR */
 
 .navbar {
-    margin: 20px 18%;
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    align-items: center;
 }
 
 .navbar-link {
     text-decoration: none;
-    color: black;
     font-size: x-large;
+    text-align: center;
     transition: all 0.2s ease;
+    color: var(--font-color-1);
 }
 
 .navbar-link:hover {

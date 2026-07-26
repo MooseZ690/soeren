@@ -3,10 +3,10 @@
 {% block body %}
 <div class="main">
 
-    <div class="splashscreen">
+    <div class="splashscreen" id="ss">
 
-        <div class="ss-large">
-            BORN FOR VICTORY
+        <div class="ss-large" id="ss-text">
+            {{ content.hero_title }}
         </div>
 
         <div class="ss-small">
@@ -14,7 +14,12 @@
 
     </div>
 
-    <div class="character-card box" id="cc">
+    <div class="subheading" id="cc">
+        ABOUT
+    </div>
+
+
+    <div class="character-card box">
 
         <img class="cover-image" src="/static/banner.jpg">
 
@@ -22,12 +27,12 @@
             <img class="profile-pic" src="/static/profilepic.jpg">
 
             <div class="cc-text-container">
-                <div class="cc-header">
-                    <h1>{{ cc[0]["name"] }}</h1>
-                    <h3 class="subdued">{{ cc[0]["subheading"] }}</h3>
+                <div class="cc-header" style="align-items:center;">
+                    <h1>{{ content.name }}</h1>
+                    <h3 class="subdued-dk">{{ content.subheading }}</h3>
                 </div>
 
-                <p class="cc-description">{{ cc[0]["description"] }}</p>
+                <p class="cc-description">{{ content.description }}</p>
 
                 <div class="">
 
@@ -37,24 +42,24 @@
         </div>
 
     </div>
-    
+
     {% for post in posts %}
-        <div class="box post">
-            <div class="post-who">
-                <img src="/static/profilepic.jpg">
-                <h2>Soeren Wells</h2>
-            </div>
-            <div class="post-text">
-                <h2>{{post['title']}}</h2>
-                <p>{{post['content']}}</p>
-                <p class="subdued">{{post['time']}}</p>
-            </div>
+    <div class="box post">
+        <div class="post-who">
+            <img src="/static/profilepic.jpg">
+            <h2>{{ content.name }}</h2>
         </div>
+        <div class="post-text">
+            <h2>{{post['title']}}</h2>
+            <p>{{post['content']}}</p>
+            <p class="subdued-dk">{{post['time']}}</p>
+        </div>
+    </div>
     {% endfor %}
 
 </div>
 
-<a href="#cc" class="scroll-indicator" aria-label="Scroll down">
+<a href="#cc" class="scroll-indicator" aria-label="Scroll down" id="scroll-indicator">
     <svg width="60" height="60" viewBox="0 0 60 80" fill="none" xmlns="http://w3.org">
         <g>
             <!-- Animation for the entire group bouncing up and down -->
@@ -75,5 +80,31 @@
         </g>
     </svg>
 </a>
+
+<script>
+    const ss = document.getElementById('ss');
+    const ssText = document.getElementById('ss-text');
+    const scrollIndicator = document.getElementById('scroll-indicator');
+
+    function animate() {
+        const rect = ss.getBoundingClientRect();
+
+        const scrolled = Math.max(-rect.top, 0);
+        const distance = ss.offsetHeight;
+
+        const progress = Math.min(scrolled / distance, 1);
+
+        ss.style.opacity = 1 - progress;
+        scrollIndicator.style.opacity = 1 - progress;
+
+        const parallaxY = (-progress * 500) - 40;
+
+        ssText.style.transform = `translateY(${parallaxY}px)`;
+
+        requestAnimationFrame(animate);
+    }
+
+    animate();
+</script>
 
 {% endblock %}

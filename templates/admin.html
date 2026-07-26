@@ -1,8 +1,67 @@
 {% extends 'base.html' %}
 {% block body %}
+<div class="admin-main">
+    <h1>Admin Panel</h1>
 
 
+    <h2>Create New Post</h2>
+
+    <form method="POST">
+
+        <input type="hidden" name="action" value="newpost">
+
+        <label>Title</label>
+        <input type="text" name="title" placeholder="Post title" required>
+
+        <br>
+
+        <label>Content</label>
+        <textarea name="content" rows="10" placeholder="Write your post..." required></textarea>
+
+        <br>
+
+        <button type="submit">
+            Publish Post
+        </button>
+
+    </form>
 
 
+    <hr>
 
+    <h2>Edit character card</h2>
+
+    <form method="POST">
+        <input type="hidden" name="action" value="update_character">
+        <div class="character-card box">
+
+            <img class="cover-image" src="/static/banner.jpg">
+
+            <div class="cc-content">
+                <img class="profile-pic" src="/static/profilepic.jpg">
+
+                <div class="cc-text-container">
+                    <div class="cc-header" style="align-items:center;">
+                        <input type="text" name="name" value="{{ content.name }}">
+                        <input class="subdued-dk" type="text" name="subheading" value="{{ content.subheading }}">
+                    </div>
+
+                    <textarea class="cc-description" name="description" rows="5">{{ content.description }}</textarea>
+                    <button class="button-submit" type="submit">
+                        Update Homepage
+                    </button>
+                </div>
+
+            </div>
+
+        </div>
+
+    </form>
+
+    <hr>
+
+    {% for user in users %}
+        
+
+</div>
 {% endblock %}

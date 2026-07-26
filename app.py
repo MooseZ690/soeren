@@ -1,11 +1,15 @@
 from flask import Flask, render_template, g, request, redirect, url_for, session, flash
 from werkzeug.security import generate_password_hash, check_password_hash
-import sqlite3
+import sqlite3, json
+
+def load_content():
+    with open("data/content.json", "r") as f:
+        return json.load(f)
 
 app = Flask(__name__)
 app.secret_key = "p943j8ow7kw9p05e7qkw0"
 
-DATABASE = "database.db"
+DATABASE = "data/database.db"
 
 def get_db():
     if "db" not in g:
@@ -41,28 +45,35 @@ def execute_db(query, args=()):
 
 @app.route("/")
 def home():
-    session.clear()
-    cc="SELECT * FROM character;"
-    posts="SELECT * FROM posts ORDER BY time ASC;"
-    cc=query_db(cc)
+    posts="SELECT * FROM posts ORDER BY time DESC;"
     posts=query_db(posts)
-    return render_template("home.html", cc=cc, posts=posts)
+    content = load_content()
+    return render_template("home.html", content=content, posts=posts)
 
 @app.route("/contact")
 def contact():
-    session.clear()
     return render_template("contact.html")
 
-@app.route("/admin")
+@app.route("/admin", methods=["GET", "POST"])
 def admin():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
 
-    return render_template("admin.html")
+    if request.method == "POST":
+        title = request.form["title"]
+        content = request.form["content"]
+
+        execute_db(
+            "INSERT INTO posts (title, content) VALUES (?, ?)",
+            (title, content)
+        )
+
+        return redirect(url_for("home"))
+
+    return render_template("admin.html", content=load_content())
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
-    session.clear()
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]

@@ -1,12 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Michroma&display=swap');
 
 :root {
-    --font-color-1: black;
-    --font-color-2: rgb(65, 65, 65);
-    --background-color: #f8f8f8;
+    --font-color-1: white;
+    --font-color-2: rgb(192, 192, 192);
+    --font-color-3: black;
+    --font-color-4: rgb(65, 65, 65);
+    --background-color: #0E1726;
+    --component-bg-color: #F8F9FA;
 }
 
 /* GLOBAL STYLING */
+
+html {
+  scroll-behavior: smooth;
+}
 
 div:not([class]) {
     margin: 0;
@@ -15,10 +23,10 @@ div:not([class]) {
 
 body {
     font-family: 'Inter', sans-serif;
-    min-height: 100vh; 
+    min-height: 100vh;
     margin: 0;
     padding: 0;
-    background-color: var(--background-color)
+    background: var(--background-color)
 }
 
 .box {
@@ -32,6 +40,10 @@ body {
     text-align: center;
 }
 
-.subdued {
+.subdued-lt {
     color: var(--font-color-2)
+}
+
+.subdued-dk {
+    color: var(--font-color-4)
 }
