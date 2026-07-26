@@ -82,6 +82,7 @@
     grid-template-columns: 1fr 1fr;
     padding: 40px;
     align-items: center;
+    animation: fadein 0.4s ease-in forwards;
 }
 
 .ss-large {

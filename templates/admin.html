@@ -61,7 +61,17 @@
     <hr>
 
     {% for user in users %}
-        
+        {{ user['name'] }}
+        {{ user['email'] }}
+        {{ user['time'] }}
+        <a href="{{ url_for('toggle_sent', id=user['id']) }}">
+            {% if user['sent'] == 0 %}
+                sent
+            {% elif user['sent'] == 1 %}
+                unsent
+            {% endif %}
+        </a>
+    {% endfor %}
 
 </div>
 {% endblock %}

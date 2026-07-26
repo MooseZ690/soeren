@@ -59,18 +59,38 @@ def admin():
     if not session.get("logged_in"):
         return redirect(url_for("login"))
 
+    content = load_content()
+    users = query_db("SELECT * FROM users ORDER BY time DESC;")
+
     if request.method == "POST":
-        title = request.form["title"]
-        content = request.form["content"]
+        print(request.form)
 
-        execute_db(
-            "INSERT INTO posts (title, content) VALUES (?, ?)",
-            (title, content)
-        )
+        action = request.form.get("action")
 
-        return redirect(url_for("home"))
+        if action == "newpost":
+            title = request.form["title"]
+            post_content = request.form["content"]
 
-    return render_template("admin.html", content=load_content())
+            execute_db(
+                "INSERT INTO posts (title, content) VALUES (?, ?)",
+                (title, post_content)
+            )
+
+        elif action == "update_character":
+            print("UPDATING JSON")
+
+            content["name"] = request.form["name"]
+            content["subheading"] = request.form["subheading"]
+            content["description"] = request.form["description"]
+
+            print(content)
+
+            with open("data/content.json", "w") as f:
+                json.dump(content, f, indent=2)
+
+        return redirect(url_for("admin"))
+
+    return render_template("admin.html", content=content, users=users)
 
 @app.route("/login", methods=["GET", "POST"])
 def login():
@@ -89,6 +109,16 @@ def login():
             session["username"] = username
             return redirect(url_for("admin"))
     return render_template("login.html")
+
+@app.route("/toggle_sent/<int:id>")
+def toggle_sent(id):
+    execute_db("""
+        UPDATE users
+        SET sent = CASE WHEN sent = 1 THEN 0 ELSE 1 END
+        WHERE id = ?
+    """, (id,))
+
+    return redirect(request.referrer or "/")
 
 if __name__ == "__main__":
     app.run(debug=True)

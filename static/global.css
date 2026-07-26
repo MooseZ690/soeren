@@ -16,6 +16,11 @@ html {
   scroll-behavior: smooth;
 }
 
+#cc, 
+#history {
+    scroll-margin-top: 60px;
+}   
+
 div:not([class]) {
     margin: 0;
     padding: 0;
@@ -46,4 +51,22 @@ body {
 
 .subdued-dk {
     color: var(--font-color-4)
+}
+
+input, textarea {
+    border: none;
+    padding: 5px;
+    margin: 10px;
+    font-family: 'Arial';
+}
+
+/* ANIMATIONS */
+
+@keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
 }
