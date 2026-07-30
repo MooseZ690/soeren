@@ -1,31 +1,24 @@
 {% extends 'base.html' %}
 {% block body %}
 <div class="admin-main">
-    <h1>Admin Panel</h1>
-
-
     <h2>Create New Post</h2>
 
     <form method="POST">
-
-        <input type="hidden" name="action" value="newpost">
-
-        <label>Title</label>
-        <input type="text" name="title" placeholder="Post title" required>
-
-        <br>
-
-        <label>Content</label>
-        <textarea name="content" rows="10" placeholder="Write your post..." required></textarea>
-
-        <br>
-
-        <button type="submit">
-            Publish Post
-        </button>
+        <div class="box post">
+            <div class="post-who">
+                <img src="/static/profilepic.jpg">
+                <h2 style="color:black;">{{ content['name'] }}</h2>
+            </div>
+            <div class="new-post-text">
+                <input type="text" name="title" placeholder="Post title" required>
+                <textarea name="content" rows="10" placeholder="Write your post..." required></textarea>
+            </div>
+            <button class="button-submit" style="margin-left: auto;" type="submit">
+                Post
+            </button>
+        </div>
 
     </form>
-
 
     <hr>
 
@@ -60,17 +53,20 @@
 
     <hr>
 
+    <h2>Users</h2>
+
     {% for user in users %}
-        {{ user['name'] }}
-        {{ user['email'] }}
-        {{ user['time'] }}
-        <a href="{{ url_for('toggle_sent', id=user['id']) }}">
-            {% if user['sent'] == 0 %}
-                sent
-            {% elif user['sent'] == 1 %}
-                unsent
-            {% endif %}
-        </a>
+    {{ user['name'] }}
+    {{ user['email'] }}
+    {{ user['time'] }}
+    <a href="{{ url_for('toggle_sent', id=user['id']) }}">
+        {% if user['sent'] == 0 %}
+        unsent
+        {% elif user['sent'] == 1 %}
+        sent
+        {% endif %}
+    </a>
+    <br>
     {% endfor %}
 
 </div>

@@ -6,7 +6,7 @@
     <div class="splashscreen" id="ss">
 
         <div class="ss-large" id="ss-text">
-            BORN FOR VICTORY.
+            filler text
         </div>
 
         <div class="ss-small">
@@ -47,7 +47,7 @@
     <div class="box post">
         <div class="post-who">
             <img src="/static/profilepic.jpg">
-            <h2>{{ content.name }}</h2>
+            <h2>{{ content['name'] }}</h2>
         </div>
         <div class="post-text">
             <h2>{{post['title']}}</h2>
@@ -84,6 +84,12 @@
         </g>
     </svg>
 </a>
+{% if message %}
+    <div class="message" onclick="this.remove()">
+        Email successfully submitted. You will be contacted shortly.
+        <p class="subdued-dk" style="padding: 0; margin: 8px 0 0 0;">Click to close</p>
+    </div>
+{% endif %}
 
 <script>
     const ss = document.getElementById('ss');

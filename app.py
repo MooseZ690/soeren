@@ -45,10 +45,11 @@ def execute_db(query, args=()):
 
 @app.route("/")
 def home():
+    message = request.args.get("message")
     posts="SELECT * FROM posts ORDER BY time DESC;"
     posts=query_db(posts)
     content = load_content()
-    return render_template("home.html", content=content, posts=posts)
+    return render_template("home.html", content=content, posts=posts, message=message)
 
 @app.route("/contact")
 def contact():
@@ -119,6 +120,27 @@ def toggle_sent(id):
     """, (id,))
 
     return redirect(request.referrer or "/")
+
+@app.route("/sendemail", methods=["GET", "POST"])
+def sendemail():
+    if request.method == "POST":
+        name = request.form['name']
+        email = request.form['email']
+
+        existing_user = query_db(
+            "SELECT * FROM users WHERE email = ?",
+            (email,),
+            one=True
+        )
+
+        if existing_user:
+            return redirect(url_for("contact"))
+
+        execute_db(
+            "INSERT INTO users (name, email, sent) VALUES (?, ?, 0)",
+            (name, email)
+        )
+    return redirect(url_for("home", message=True))
 
 if __name__ == "__main__":
     app.run(debug=True)
