@@ -12,10 +12,6 @@
 
 /* GLOBAL STYLING */
 
-html {
-  scroll-behavior: smooth;
-}
-
 #cc, 
 #history {
     scroll-margin-top: 60px;

@@ -1,3 +1,190 @@
 .admin-main {
     color: var(--font-color-1);
 }
+
+.admin-subheading {
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+    width: max-content;
+}
+
+/* LOGOUT copied off github's settings page ahah */
+
+.logout-bar {
+    display: flex;
+    justify-content: center;
+}
+
+.logout-button {
+    color: #fa5e55;
+    background-color: #212830;
+    border-radius: 15px;
+    font-size: 16px;
+    border: 1px solid #3d444d;
+    padding: 12px;
+    margin: 50px;
+    cursor: pointer;
+}
+
+.logout-button:hover {
+    background-color: #3d444d;
+    border: 2px dashed #fa5e55;
+}
+
+/* USERS SECTION */
+
+.users-list {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    margin-top: 25px;
+}
+
+.user-card {
+    background: var(--box-background);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 16px;
+    padding: 20px 24px;
+    transition: .2s;
+}
+
+.user-card:hover {
+    border-color: rgba(64, 102, 255, .45);
+    box-shadow: 0 0 20px rgba(64, 102, 255, .15);
+}
+
+.user-main {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 25px;
+}
+
+.user-details {
+    flex: 1;
+}
+
+.user-name {
+    margin: 0 0 6px;
+    font-size: 1.35rem;
+    color: var(--font);
+}
+
+.user-email {
+    color: var(--coloured-element);
+    text-decoration: none;
+    font-family: "Roboto Mono", monospace;
+    transition: .15s;
+}
+
+.user-email:hover {
+    text-decoration: underline;
+}
+
+.user-time {
+    color: var(--muted-font);
+    font-family: "Roboto Mono", monospace;
+    white-space: nowrap;
+}
+
+.user-status {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.status-pill {
+    padding: 7px 14px;
+    border-radius: 999px;
+    font-size: .9rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: .05em;
+}
+
+.status-unsent {
+    background: rgba(255, 170, 0, .15);
+    color: #ffc857;
+    border: 1px solid rgba(255, 170, 0, .3);
+}
+
+.status-sent {
+    background: rgba(46, 204, 113, .15);
+    color: #6ef3a5;
+    border: 1px solid rgba(46, 204, 113, .3);
+}
+
+.toggle-button {
+    background: var(--coloured-element);
+    color: white;
+    text-decoration: none;
+    padding: 10px 18px;
+    border-radius: 10px;
+    font-weight: 600;
+    transition: .2s;
+}
+
+.toggle-button:hover {
+    transform: translateY(-2px);
+    filter: brightness(1.08);
+}
+
+/* DETAILS EDITING */
+
+.character-form {
+    width: min(750px, 100%);
+    margin: 30px auto;
+    padding: 30px;
+
+    background: var(--box-background);
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 18px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.form-group label {
+    font-size: .95rem;
+    font-weight: 600;
+    color: var(--muted-font);
+}
+
+.form-group input,
+.form-group textarea {
+    width: 100%;
+
+    padding: 14px 16px;
+
+    background: var(--input-background);
+    color: var(--font);
+
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 12px;
+
+    font: inherit;
+
+    resize: vertical;
+    box-sizing: border-box;
+
+    transition: .2s;
+}
+
+.form-group input:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--coloured-element);
+    box-shadow: 0 0 0 3px rgba(64, 102, 255, .15);
+}
+
+.form-group textarea {
+    min-height: 180px;
+}

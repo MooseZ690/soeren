@@ -78,7 +78,7 @@ def admin():
             )
 
         elif action == "update_character":
-            print("UPDATING JSON")
+            print("UPDATING JSON - CC")
 
             content["name"] = request.form["name"]
             content["subheading"] = request.form["subheading"]
@@ -88,7 +88,19 @@ def admin():
 
             with open("data/content.json", "w") as f:
                 json.dump(content, f, indent=2)
-
+                
+        elif action == "update_email":
+            print("UPDATING JSON - EMAIL CONTENT")
+            
+            content["mail_subject"] = request.form["subject"]
+            content["mail_body"] = request.form["body"]
+            
+            print(content)
+            
+            with open("data/content.json", "w") as f:
+                json.dump(content, f, indent=2)
+            
+            
         return redirect(url_for("admin"))
 
     return render_template("admin.html", content=content, users=users)
@@ -141,6 +153,34 @@ def sendemail():
             (name, email)
         )
     return redirect(url_for("home", message=True))
+
+@app.route("/admin/email", methods=["GET", "POST"])
+def admin_email():
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+
+    content = load_content()
+
+    if request.method == "POST":
+        content["mail_subject"] = request.form["mail_subject"]
+        content["mail_body"] = request.form["mail_body"]
+
+        with open("data/content.json", "w") as f:
+            json.dump(content, f, indent=4)
+
+        return redirect(url_for("admin_email"))
+
+    return render_template(
+        "admin_email.html",
+        content=content
+    )
+
+@app.route("/logout", methods=["POST"])
+def logout():
+        session.clear()
+        print("session cleared")
+        return redirect(url_for("home"))
+
 
 if __name__ == "__main__":
     app.run(debug=True)

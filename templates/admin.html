@@ -1,7 +1,55 @@
 {% extends 'base.html' %}
 {% block body %}
 <div class="admin-main">
-    <h2>Create New Post</h2>
+    <h2 class="admin-subheading">Edit character card</h2>
+
+    <form method="POST" class="character-form">
+
+        <input type="hidden" name="action" value="update_character">
+
+        <div class="form-group">
+            <label>Name</label>
+            <input type="text" name="name" value="{{ content.name }}">
+        </div>
+
+        <div class="form-group">
+            <label>Subheading</label>
+            <input type="text" name="subheading" value="{{ content.subheading }}">
+        </div>
+
+        <div class="form-group">
+            <label>Description</label>
+            <textarea name="description" rows="8">{{ content.description }}</textarea>
+        </div>
+
+        <button class="button-submit" type="submit">
+            Save Changes
+        </button>
+
+    </form>
+
+
+    <h2 class="admin-subheading">Edit email autofill</h2>
+
+    <form method="POST" class="character-form">
+
+        <div class="form-group">
+            <label>Subject</label>
+            <input type="text" name="mail_subject" value="{{ content['mail_subject'] }}">
+        </div>
+
+        <div class="form-group">
+            <label>Body</label>
+            <textarea name="mail_body" rows="12">{{ content['mail_body'] }}</textarea>
+        </div>
+
+        <button class="button-submit" type="submit">
+            Save Template
+        </button>
+
+    </form>
+
+    <h2 class="admin-subheading">Create New Post</h2>
 
     <form method="POST">
         <div class="box post">
@@ -20,54 +68,58 @@
 
     </form>
 
-    <hr>
 
-    <h2>Edit character card</h2>
 
-    <form method="POST">
-        <input type="hidden" name="action" value="update_character">
-        <div class="character-card box">
+    <h2 class="admin-subheading">Users</h2>
 
-            <img class="cover-image" src="/static/banner.jpg">
+    <div class="users-list">
 
-            <div class="cc-content">
-                <img class="profile-pic" src="/static/profilepic.jpg">
+        {% for user in users %}
+        <div class="user-card">
 
-                <div class="cc-text-container">
-                    <div class="cc-header" style="align-items:center;">
-                        <input type="text" name="name" value="{{ content.name }}">
-                        <input class="subdued-dk" type="text" name="subheading" value="{{ content.subheading }}">
-                    </div>
+            <div class="user-main">
+                <div class="user-details">
+                    <h3 class="user-name">{{ user['name'] }}</h3>
 
-                    <textarea class="cc-description" name="description" rows="5">{{ content.description }}</textarea>
-                    <button class="button-submit" type="submit">
-                        Update Homepage
-                    </button>
+                    <a class="user-email"
+                        href="mailto:{{ user['email'] }}?subject={{ content['mail_subject'] }}&body={{ content['mail_body'] }}">
+                        {{ user['email'] }}
+                    </a>
                 </div>
 
+                <div class="user-time">
+                    {{ user['time'] }}
+                </div>
+
+                <div class="user-status">
+
+                    {% if user['sent'] == 0 %}
+                    <span class="status-pill status-unsent">
+                        Unsent
+                    </span>
+                    {% else %}
+                    <span class="status-pill status-sent">
+                        Sent
+                    </span>
+                    {% endif %}
+
+                    <a class="toggle-button" href="{{ url_for('toggle_sent', id=user['id']) }}">
+                        Toggle
+                    </a>
+
+                </div>
             </div>
 
         </div>
+        {% endfor %}
 
-    </form>
-
-    <hr>
-
-    <h2>Users</h2>
-
-    {% for user in users %}
-    {{ user['name'] }}
-    {{ user['email'] }}
-    {{ user['time'] }}
-    <a href="{{ url_for('toggle_sent', id=user['id']) }}">
-        {% if user['sent'] == 0 %}
-        unsent
-        {% elif user['sent'] == 1 %}
-        sent
-        {% endif %}
-    </a>
-    <br>
-    {% endfor %}
+    </div>
 
 </div>
+<div class="logout-bar">
+    <form action="{{ url_for('logout') }}" method="post">
+        <button class="logout-button">Logout</button>
+    </form>
+</div>
+
 {% endblock %}

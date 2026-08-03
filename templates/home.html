@@ -6,7 +6,7 @@
     <div class="splashscreen" id="ss">
 
         <div class="ss-large" id="ss-text">
-            filler text
+            BORN FOR VICTORY.
         </div>
 
         <div class="ss-small">
@@ -21,24 +21,30 @@
 
     <div class="character-card box">
 
-        <img class="cover-image" src="/static/banner.jpg">
+        <div class="cc-left">
 
-        <div class="cc-content">
-            <img class="profile-pic" src="/static/profilepic.jpg">
+            <span class="cc-badge">
+                {{ content.subheading }}
+            </span>
 
-            <div class="cc-text-container">
-                <div class="cc-header" style="align-items:center;">
-                    <h1>{{ content.name }}</h1>
-                    <h3 class="subdued-dk">{{ content.subheading }}</h3>
-                </div>
+            <h1>{{ content.name }}</h1>
 
-                <p class="cc-description">{{ content.description }}</p>
+            <p class="cc-description">
+                {{ content.description }}
+            </p>
 
-                <div class="">
+            <div class="cc-divider"></div>
 
-                </div>
+            <div class="cc-footer">
+                <span>Dedicated coaching.</span>
+                <span>Personal training.</span>
+                <span>Competition preparation.</span>
             </div>
 
+        </div>
+
+        <div class="cc-right">
+            <img class="profile-pic" src="/static/profilepic.jpg">
         </div>
 
     </div>
@@ -85,10 +91,10 @@
     </svg>
 </a>
 {% if message %}
-    <div class="message" onclick="this.remove()">
-        Email successfully submitted. You will be contacted shortly.
-        <p class="subdued-dk" style="padding: 0; margin: 8px 0 0 0;">Click to close</p>
-    </div>
+<div class="message" onclick="this.remove()">
+    Email successfully submitted. You will be contacted shortly.
+    <p class="subdued-dk" style="padding: 0; margin: 8px 0 0 0;">Click to close</p>
+</div>
 {% endif %}
 
 <script>
