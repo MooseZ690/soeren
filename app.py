@@ -46,10 +46,28 @@ def execute_db(query, args=()):
 @app.route("/")
 def home():
     message = request.args.get("message")
-    posts="SELECT * FROM posts ORDER BY time DESC;"
-    posts=query_db(posts)
+
+    posts = query_db(
+        "SELECT * FROM posts ORDER BY time DESC;"
+    )
+
+    history = query_db(
+        """
+        SELECT year, title, description, medals, position
+        FROM history
+        ORDER BY year DESC;
+        """
+    )
+
     content = load_content()
-    return render_template("home.html", content=content, posts=posts, message=message)
+
+    return render_template(
+        "home.html",
+        content=content,
+        posts=posts,
+        history=history,
+        message=message
+    )
 
 @app.route("/contact")
 def contact():
@@ -88,19 +106,19 @@ def admin():
 
             with open("data/content.json", "w") as f:
                 json.dump(content, f, indent=2)
-                
+
         elif action == "update_email":
             print("UPDATING JSON - EMAIL CONTENT")
-            
+
             content["mail_subject"] = request.form["subject"]
             content["mail_body"] = request.form["body"]
-            
+
             print(content)
-            
+
             with open("data/content.json", "w") as f:
                 json.dump(content, f, indent=2)
-            
-            
+
+
         return redirect(url_for("admin"))
 
     return render_template("admin.html", content=content, users=users)
@@ -152,6 +170,37 @@ def sendemail():
             "INSERT INTO users (name, email, sent) VALUES (?, ?, 0)",
             (name, email)
         )
+    return redirect(url_for("home", message=True))
+
+@app.route("/booking", methods=["GET", "POST"])
+def booking():
+    if request.method == "POST":
+        name = request.form["name"]
+        email = request.form["email"]
+        desc = request.form["description"]
+
+        existing_user = query_db(
+            "SELECT * FROM booking WHERE email = ?",
+            (email,),
+            one=True
+        )
+
+        if existing_user:
+            return redirect(url_for("contact"))
+
+        execute_db(
+            "INSERT INTO users (name, email, sent) VALUES (?, ?, 0)",
+            (name, email)
+        ) #registering as a user too
+
+        execute_db(
+            """
+            INSERT INTO booking (name, email, desc, sent)
+            VALUES (?, ?, ?, ?)
+            """,
+            (name, email, desc, 0)
+        )
+
     return redirect(url_for("home", message=True))
 
 @app.route("/admin/email", methods=["GET", "POST"])

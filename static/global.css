@@ -12,10 +12,15 @@
 
 /* GLOBAL STYLING */
 
-#cc, 
+a {
+    text-decoration: none;
+    color: var(--background-color);
+}
+
+#cc,
 #history {
     scroll-margin-top: 60px;
-}   
+}
 
 div:not([class]) {
     margin: 0;

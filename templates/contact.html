@@ -1,13 +1,49 @@
 {% extends 'base.html' %}
 {% block body %}
+    <h2 class="subheading" style="font-size: medium;">Completing either form will register you in the system. </h2>
     <div class="box contact">
         <div style="display:flex; align-items:center; justify-content: center;"><h1 class="fa-brands fa-google-drive"></h1><h1>&nbsp Submit email</h1></div>
-        <form action="{{ url_for('sendemail') }}" method="POST">
+        <form action="{{ url_for('sendemail') }}" method="POST" class="contact-form">
             <input type="text" id="name" name="name" placeholder="Name" required>
 
             <input type="email" id="email" name="email" placeholder="Email" required>
 
             <button class="button-submit" type="submit">Submit</button>
+        </form>
+    </div>
+
+    <div class="box contact">
+        <div style="display:flex; align-items:center; justify-content:center;"><h1 class="fa-solid fa-camera"></h1><h1>&nbsp Request booking</h1></div>
+
+        <form action="{{ url_for('booking') }}" method="POST" class="contact-form">
+
+            <input
+                type="text"
+                id="booking-name"
+                name="name"
+                placeholder="Name"
+                required
+            >
+
+            <input
+                type="email"
+                id="booking-email"
+                name="email"
+                placeholder="Email"
+                required
+            >
+
+            <textarea
+                id="description"
+                name="description"
+                placeholder="A short description of yourself and your goals"
+                required
+            ></textarea>
+
+            <button class="button-submit" type="submit">
+                Submit
+            </button>
+
         </form>
     </div>
 {% endblock %}

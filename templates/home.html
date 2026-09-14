@@ -69,27 +69,63 @@
 
 </div>
 
-<a href="#cc" class="scroll-indicator" aria-label="Scroll down" id="scroll-indicator">
-    <svg width="60" height="60" viewBox="0 0 60 80" fill="none" xmlns="http://w3.org">
-        <g>
-            <!-- Animation for the entire group bouncing up and down -->
-            <animateTransform attributeName="transform" type="translate" values="0,0; 0,8; 0,0" dur="1.5s"
-                repeatCount="indefinite" calcMode="spline" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" />
-
-            <!-- Mask to punch a transparent hole through the white circle -->
-            <mask id="arrow-cutout">
-                <!-- Everything white in the mask stays visible -->
-                <circle cx="30" cy="30" r="28" fill="white" />
-                <!-- Everything black in the mask becomes completely transparent -->
-                <path d="M20 25L30 35L40 25" stroke="black" stroke-width="4" stroke-linecap="round"
-                    stroke-linejoin="round" fill="none" />
-            </mask>
-
-            <!-- Visible White Circle with the Mask Applied -->
-            <circle cx="30" cy="30" r="28" fill="white" mask="url(#arrow-cutout)" />
-        </g>
-    </svg>
+<a href="/contact" class="contact-first" aria-label="Scroll down">
+    <h2>Booking & Materials</h2>
 </a>
+
+<section class="history-section" id="history">
+
+    <div class="history-header">
+        <p>A chronological record of competitions, achievements and results.</p>
+    </div>
+
+    <div class="history-timeline">
+
+        {% for entry in history %}
+
+        <article class="history-entry
+            {% if entry.position == 0 %}
+                history-right
+            {% else %}
+                history-left
+            {% endif %}
+        ">
+
+            <div class="history-marker"></div>
+
+            <div class="history-card">
+
+                <span class="history-year">
+                    {{ entry.year }}
+                </span>
+
+                <h3>{{ entry.title }}</h3>
+
+                {% if entry.description %}
+                    <p>{{ entry.description }}</p>
+                {% endif %}
+
+                <div class="history-medals">
+                    <span>{{ entry.medals }}</span>
+                    <small>
+                        {% if entry.medals == 1 %}
+                            MEDAL
+                        {% else %}
+                            MEDALS
+                        {% endif %}
+                    </small>
+                </div>
+
+            </div>
+
+        </article>
+
+        {% endfor %}
+
+    </div>
+
+</section>
+
 {% if message %}
 <div class="message" onclick="this.remove()">
     Email successfully submitted. You will be contacted shortly.
@@ -100,7 +136,7 @@
 <script>
     const ss = document.getElementById('ss');
     const ssText = document.getElementById('ss-text');
-    const scrollIndicator = document.getElementById('scroll-indicator');
+    const scrollIndicator = document.getElementById('contact-first');
 
     function animate() {
         const rect = ss.getBoundingClientRect();
