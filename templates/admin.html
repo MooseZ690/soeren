@@ -79,10 +79,17 @@
 
             <div class="user-main">
                 <div class="user-details">
-                    <h3 class="user-name">{{ user['name'] }}</h3>
+                    <h3 class="user-name">{{ user['name'] }}
+                    {% set body = content['mail_body'] %}
+                    {% if user[5] == 1 %}
+                     &nbsp-&nbsp&nbspVideo call
+                     {% set title = content['video_mail_subject'] %}
+                     {% set body = '' %}
+                    {% endif %}
+                    </h3>
 
                     <a class="user-email"
-                        href="mailto:{{ user['email'] }}?subject={{ content['mail_subject'] }}&body={{ content['mail_body'] }}">
+                        href="mailto:{{ user['email'] }}?subject={{ title }}&body={{ body }}">
                         {{ user['email'] }}
                     </a>
                 </div>
