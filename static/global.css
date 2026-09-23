@@ -4,13 +4,17 @@
 :root {
     --font-color-1: white;
     --font-color-2: rgb(192, 192, 192);
-    --font-color-3: black;
-    --font-color-4: rgb(65, 65, 65);
+    --font-color-3: white;
+    --font-color-4: rgb(245, 245, 245);
     --background-color: #0E1726;
-    --component-bg-color: #F8F9FA;
+    --component-bg-color: rgba(255, 255, 255, 0.1);
 }
 
 /* GLOBAL STYLING */
+
+input, textarea {
+    background-color: var(--component-bg-color) !important;
+}
 
 a {
     text-decoration: none;

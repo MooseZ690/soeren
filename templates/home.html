@@ -53,7 +53,6 @@
     <div class="box post">
         <div class="post-who">
             <img src="/static/profilepic.jpg">
-            <h2>{{ content['name'] }}</h2>
         </div>
         <div class="post-text">
             <h2>{{post['title']}}</h2>
@@ -61,6 +60,7 @@
             <p class="subdued-dk">{{post['time']}}</p>
         </div>
     </div>
+    <div style="margin-bottom: 80px;"></div>
     {% endfor %}
 
     <div class="subheading" id="cc">
@@ -69,9 +69,6 @@
 
 </div>
 
-<a href="/contact" class="contact-first" aria-label="Scroll down">
-    <h2>Booking & Materials</h2>
-</a>
 
 <section class="history-section" id="history">
 
@@ -99,22 +96,33 @@
                     {{ entry.year }}
                 </span>
 
-                <h3>{{ entry.title }}</h3>
+                <h3>
+                    {{ entry.title }}
+                </h3>
 
                 {% if entry.description %}
-                    <p>{{ entry.description }}</p>
+                    <p>
+                        {{ entry.description }}
+                    </p>
                 {% endif %}
 
-                <div class="history-medals">
-                    <span>{{ entry.medals }}</span>
-                    <small>
-                        {% if entry.medals == 1 %}
-                            MEDAL
-                        {% else %}
-                            MEDALS
-                        {% endif %}
-                    </small>
-                </div>
+                {% if entry.medals > 0 %}
+                    <div class="history-medals">
+
+                        <span>
+                            {{ entry.medals }}
+                        </span>
+
+                        <small>
+                            {% if entry.medals == 1 %}
+                                MEDAL
+                            {% else %}
+                                MEDALS
+                            {% endif %}
+                        </small>
+
+                    </div>
+                {% endif %}
 
             </div>
 
@@ -125,6 +133,7 @@
     </div>
 
 </section>
+
 
 {% if message %}
 <div class="message" onclick="this.remove()">

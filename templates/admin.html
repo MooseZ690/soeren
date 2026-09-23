@@ -33,14 +33,26 @@
 
     <form method="POST" class="character-form">
 
+        <input type="hidden" name="action" value="update_email">
+
         <div class="form-group">
-            <label>Subject</label>
-            <input type="text" name="mail_subject" value="{{ content['mail_subject'] }}">
+            <label>Drive link - Subject</label>
+            <input type="text" name="subject_drive" value="{{ content['mail_subject_drive'] }}">
         </div>
 
         <div class="form-group">
-            <label>Body</label>
-            <textarea name="mail_body" rows="12">{{ content['mail_body'] }}</textarea>
+            <label>Drive link - Body</label>
+            <textarea name="body_drive" rows="6">{{ content['mail_body_drive'] }}</textarea>
+        </div>
+
+        <div class="form-group">
+            <label>Video meeting - Subject</label>
+            <input type="text" name="subject_meeting" value="{{ content['mail_subject_meeting'] }}">
+        </div>
+
+        <div class="form-group">
+            <label>Video meeting - Body</label>
+            <textarea name="body_meeting" rows="6">{{ content['mail_body_meeting'] }}</textarea>
         </div>
 
         <button class="button-submit" type="submit">
@@ -79,19 +91,19 @@
 
             <div class="user-main">
                 <div class="user-details">
-                    <h3 class="user-name">{{ user['name'] }}
-                    {% set body = content['mail_body'] %}
-                    {% if user[5] == 1 %}
-                     &nbsp-&nbsp&nbspVideo call
-                     {% set title = content['video_mail_subject'] %}
-                     {% set body = '' %}
-                    {% endif %}
-                    </h3>
+                    <h3 class="user-name">{{ user['name'] }}</h3>
 
+                    {% if user['booking'] == 1 %}
                     <a class="user-email"
-                        href="mailto:{{ user['email'] }}?subject={{ title }}&body={{ body }}">
+                        href="mailto:{{ user['email'] }}?subject={{ content['mail_subject_meeting'] }}&body={{ content['mail_body_meeting'] }}">
                         {{ user['email'] }}
                     </a>
+                    {% else %}
+                    <a class="user-email"
+                        href="mailto:{{ user['email'] }}?subject={{ content['mail_subject_drive'] }}&body={{ content['mail_body_drive'] }}">
+                        {{ user['email'] }}
+                    </a>
+                    {% endif %}
                 </div>
 
                 <div class="user-time">
@@ -100,18 +112,13 @@
 
                 <div class="user-status">
 
-                    {% if user['sent'] == 0 %}
-                    <span class="status-pill status-unsent">
-                        Unsent
+                    <span class="status-label status-static">
+                        {% if user['booking'] == 1 %}Video meeting{% else %}Drive link{% endif %}
                     </span>
-                    {% else %}
-                    <span class="status-pill status-sent">
-                        Sent
-                    </span>
-                    {% endif %}
 
-                    <a class="toggle-button" href="{{ url_for('toggle_sent', id=user['id']) }}">
-                        Toggle
+                    <a class="status-label {% if user['sent'] == 1 %}is-sent{% endif %}"
+                        href="{{ url_for('toggle_sent', id=user['id']) }}">
+                        {% if user['sent'] == 1 %}Sent{% else %}Unsent{% endif %}
                     </a>
 
                 </div>

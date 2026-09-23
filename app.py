@@ -47,17 +47,15 @@ def execute_db(query, args=()):
 def home():
     message = request.args.get("message")
 
-    posts = query_db(
-        "SELECT * FROM posts ORDER BY time DESC;"
-    )
+    posts = "SELECT * FROM posts ORDER BY time DESC;"
+    posts = query_db(posts)
 
-    history = query_db(
-        """
+    history = """
         SELECT year, title, description, medals, position
         FROM history
-        ORDER BY year DESC;
-        """
-    )
+        ORDER BY year ASC, id ASC;
+    """
+    history = query_db(history)
 
     content = load_content()
 
@@ -68,7 +66,6 @@ def home():
         history=history,
         message=message
     )
-
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
@@ -110,8 +107,10 @@ def admin():
         elif action == "update_email":
             print("UPDATING JSON - EMAIL CONTENT")
 
-            content["mail_subject"] = request.form["subject"]
-            content["mail_body"] = request.form["body"]
+            content["mail_subject_drive"] = request.form["subject_drive"]
+            content["mail_body_drive"] = request.form["body_drive"]
+            content["mail_subject_meeting"] = request.form["subject_meeting"]
+            content["mail_body_meeting"] = request.form["body_meeting"]
 
             print(content)
 
@@ -143,6 +142,9 @@ def login():
 
 @app.route("/toggle_sent/<int:id>")
 def toggle_sent(id):
+    if not session.get("logged_in"):
+        return redirect(url_for("login"))
+
     execute_db("""
         UPDATE users
         SET sent = CASE WHEN sent = 1 THEN 0 ELSE 1 END
@@ -154,8 +156,9 @@ def toggle_sent(id):
 @app.route("/sendemail", methods=["GET", "POST"])
 def sendemail():
     if request.method == "POST":
-        name = request.form['name']
-        email = request.form['email']
+        name = request.form["name"]
+        email = request.form["email"]
+        booking = 1 if request.form.get("booking") == "1" else 0
 
         existing_user = query_db(
             "SELECT * FROM users WHERE email = ?",
@@ -167,40 +170,9 @@ def sendemail():
             return redirect(url_for("contact"))
 
         execute_db(
-            "INSERT INTO users (name, email, sent) VALUES (?, ?, 0)",
-            (name, email)
+            "INSERT INTO users (name, email, booking, sent) VALUES (?, ?, ?, 0)",
+            (name, email, booking)
         )
-    return redirect(url_for("home", message=True))
-
-@app.route("/booking", methods=["GET", "POST"])
-def booking():
-    if request.method == "POST":
-        name = request.form["name"]
-        email = request.form["email"]
-        desc = request.form["description"]
-
-        existing_user = query_db(
-            "SELECT * FROM booking WHERE email = ?",
-            (email,),
-            one=True
-        )
-
-        if existing_user:
-            return redirect(url_for("contact"))
-
-        execute_db(
-            "INSERT INTO users (name, email, sent) VALUES (?, ?, 0)",
-            (name, email)
-        ) #registering as a user too
-
-        execute_db(
-            """
-            INSERT INTO booking (name, email, desc, sent)
-            VALUES (?, ?, ?, ?)
-            """,
-            (name, email, desc, 0)
-        )
-
     return redirect(url_for("home", message=True))
 
 @app.route("/admin/email", methods=["GET", "POST"])
