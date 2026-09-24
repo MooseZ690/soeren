@@ -53,10 +53,10 @@ def home():
     history = """
         SELECT year, title, description, medals, position
         FROM history
-        ORDER BY year ASC, id ASC;
+        ORDER BY year DESC;
     """
     history = query_db(history)
-
+    print(history)
     content = load_content()
 
     return render_template(
@@ -66,6 +66,8 @@ def home():
         history=history,
         message=message
     )
+
+
 @app.route("/contact")
 def contact():
     return render_template("contact.html")
