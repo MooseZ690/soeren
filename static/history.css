@@ -1,0 +1,247 @@
+/* HISTORY */
+
+.history-section {
+    width: min(1100px, 90%);
+    margin: 100px auto;
+}
+
+.history-header {
+    max-width: 620px;
+    margin-bottom: 70px;
+}
+
+.history-label {
+    display: block;
+    margin-bottom: 12px;
+    font-family: 'Michroma', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.15em;
+    color: var(--font-color-1);
+}
+
+
+/* TIMELINE */
+
+.history-timeline {
+    position: relative;
+    padding: 20px 0;
+}
+
+/* Central vertical line */
+
+.history-timeline::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 50%;
+    width: 3px;
+    background: var(--font-color-4);
+    transform: translateX(-50%);
+}
+
+
+/* INDIVIDUAL ENTRIES */
+
+.history-entry {
+    position: relative;
+    display: flex;
+    width: 50%;
+    margin-bottom: 70px;
+    box-sizing: border-box;
+}
+
+.history-entry:last-child {
+    margin-bottom: 0;
+}
+
+
+/* RIGHT SIDE */
+
+.history-right {
+    margin-left: 50%;
+    padding-left: 45px;
+}
+
+
+/* LEFT SIDE */
+
+.history-left {
+    margin-left: 0;
+    padding-right: 45px;
+    justify-content: flex-end;
+}
+
+
+/* BRANCH */
+
+.history-entry::after {
+    content: "";
+    position: absolute;
+    top: 34px;
+    height: 3px;
+    background: var(--font-color-4);
+}
+
+.history-right::after {
+    left: 0;
+    width: 45px;
+}
+
+.history-left::after {
+    right: 0;
+    width: 45px;
+}
+
+
+/* TIMELINE DOT */
+
+.history-marker {
+    position: absolute;
+    top: 29px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--font-color-1);
+    box-sizing: border-box;
+    z-index: 2;
+}
+
+.history-right .history-marker {
+    left: -5px;
+}
+
+.history-left .history-marker {
+    right: -5px;
+}
+
+
+/* CARD */
+
+.history-card {
+    width: 100%;
+    max-width: 430px;
+    padding: 25px;
+    box-sizing: border-box;
+
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 12px;
+
+    background: rgba(255, 255, 255, 0.04);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.08);
+}
+
+
+/* CARD TEXT */
+
+.history-year {
+    display: block;
+    margin-bottom: 16px;
+
+    font-family: 'Michroma', sans-serif;
+    font-size: 0.7rem;
+    letter-spacing: 0.12em;
+
+    color: var(--font-color-1);
+}
+
+.history-card h3 {
+    margin: 0 0 10px;
+
+    color: var(--font-color-1);
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.history-card p {
+    margin: 0;
+
+    color: var(--font-color-2);
+    line-height: 1.55;
+}
+
+
+/* MEDALS */
+
+.history-medals {
+    display: flex;
+    align-items: baseline;
+    gap: 8px;
+
+    margin-top: 24px;
+    padding-top: 15px;
+
+    border-top: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.history-medals span {
+    color: var(--font-color-1);
+
+    font-family: 'Michroma', sans-serif;
+    font-size: 1.25rem;
+}
+
+.history-medals small {
+    color: var(--font-color-2);
+
+    font-family: 'Michroma', sans-serif;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
+}
+
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+
+    .history-section {
+        width: calc(100% - 40px);
+        margin: 70px auto;
+    }
+
+    /* Move central line to the left */
+
+    .history-timeline::before {
+        left: 8px;
+        transform: none;
+    }
+
+    .history-entry,
+    .history-right,
+    .history-left {
+        width: 100%;
+        margin-left: 0;
+        padding-left: 38px;
+        padding-right: 0;
+        justify-content: flex-start;
+    }
+
+    .history-entry {
+        margin-bottom: 45px;
+    }
+
+    /* Branch meets the vertical line */
+
+    .history-entry::after,
+    .history-right::after,
+    .history-left::after {
+        left: 8px;
+        right: auto;
+        width: 30px;
+    }
+
+    /* Dot sits directly on the vertical line */
+
+    .history-marker,
+    .history-right .history-marker,
+    .history-left .history-marker {
+        left: 3px;
+        right: auto;
+        top: 29px;
+    }
+
+    .history-card {
+        max-width: none;
+        padding: 20px;
+    }
+}
